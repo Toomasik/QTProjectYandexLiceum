@@ -1,12 +1,25 @@
+import os
 import sqlite3
+import sys
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget, QMessageBox
 
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 class ChangeInfo(QWidget):
     def __init__(self, id):
         super().__init__()
+        self.confrimBtn = None
+        self.changeQuanity = None
+        self.changePrice = None
+        self.cahngeDescription = None
+        self.changeDate = None
         self.id = id
         uic.loadUi("AdminFncs/changeInfo/changeInfo.ui", self)
         self.confrimBtn.clicked.connect(self.changeProduct)

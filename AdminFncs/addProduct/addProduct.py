@@ -1,8 +1,16 @@
+import os
 import sqlite3
+import sys
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget, QMessageBox
 
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 class AddProduct(QWidget):
     def __init__(self):
@@ -26,25 +34,29 @@ class AddProduct(QWidget):
         }
 
         category_id = categories[category]
-        msg = QMessageBox()
-        msg.setWindowTitle("Information")
-        msg.setIcon(QMessageBox.Icon.Information)
-        msg.setStandardButtons(QMessageBox.StandardButton.Ok)
+
 
         con = sqlite3.connect("products.db")
         cur = con.cursor()
 
         isNameAlrIn = cur.execute("SELECT * FROM card_db WHERE name = ?", (name.capitalize(),)).fetchall()
         if isNameAlrIn:
+            msg = QMessageBox()
+            msg.setWindowTitle("Information")
+            msg.setIcon(QMessageBox.Icon.Information)
+            msg.setStandardButtons(QMessageBox.StandardButton.Ok)
             msg.setText("Product with this name already exicts!")
+            msg.exec()
         else:
             cur.execute(
                 "INSERT INTO card_db (name, quantity, description, expiration_date, price, category_id) VALUES (?, ?, ?, ?, ?, ?)",
                 (name.capitalize(), quanity, description.capitalize(), expirationDate, price, category_id)
             )
+            msg = QMessageBox()
+            msg.setWindowTitle("Information")
+            msg.setIcon(QMessageBox.Icon.Information)
+            msg.setStandardButtons(QMessageBox.StandardButton.Ok)
             msg.setText("Product added!")
-
+            msg.exec()
         con.commit()
         con.close()
-
-        msg.exec()

@@ -16,13 +16,22 @@ class CardInfo(QWidget):
 
     def resource_path(relative_path):
         try:
-            base_path = sys._MEIPASS  # Временная папка с ресурсами у PyInstaller
+            base_path = sys._MEIPASS
         except Exception:
             base_path = os.path.abspath(".")
         return os.path.join(base_path, relative_path)
 
     def __init__(self, id, name, quanity, description, expiration_date, price, filename):
         super().__init__()
+        self.product_date = None
+        self.product_description = None
+        self.product_price = None
+        self.product_quanity = None
+        self.product_name = None
+        self.changeInfoBtn = None
+        self.deleteBtn = None
+        self.addToCartBtn = None
+        self.product_graph = None
         self.changeInfoForm = ChangeInfo(id)
         pixmap = QPixmap(filename).copy(QRect(0, 0, 300, 250))
         pixmap = pixmap.scaled(300, 250)
@@ -117,8 +126,3 @@ class CardInfo(QWidget):
             msg.setStandardButtons(QMessageBox.StandardButton.Ok)
             msg.setText("You are not Admin!")
             msg.exec()
-
-
-
-
-

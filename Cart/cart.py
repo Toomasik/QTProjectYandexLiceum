@@ -3,7 +3,7 @@ import sys
 
 from PyQt6 import uic
 import sqlite3
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget
+from PyQt6.QtWidgets import QWidget
 
 from AdminFncs.addProduct.addProduct import AddProduct
 from AdminFncs.deleteProduct.deleteProduct import DeleteProduct
@@ -12,7 +12,7 @@ from Card.Card import Card
 
 def resource_path(relative_path):
     try:
-        base_path = sys._MEIPASS  # Временная папка с ресурсами у PyInstaller
+        base_path = sys._MEIPASS
     except Exception:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
@@ -20,6 +20,10 @@ def resource_path(relative_path):
 class Cart(QWidget):
     def __init__(self):
         super().__init__()
+        self.isAdmin = None
+        self.products_grid = None
+        self.addProduct = None
+        self.deleteProduct = None
         uic.loadUi("Cart/profile.ui", self)
         self.init_items()
         self.update()

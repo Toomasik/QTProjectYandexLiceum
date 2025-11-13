@@ -1,16 +1,16 @@
 import sys
-
 from PyQt6 import uic
 import sqlite3
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow
 
 from Card.Card import Card
 from Cart.cart import Cart
 
 import os, sys
 
+
+# Функция для корректного получения пути к ресурсам
 def resource_path(relative_path):
-    """Корректный путь к ресурсу."""
     try:
         base_path = sys._MEIPASS
     except Exception:
@@ -18,13 +18,16 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 
+# Основное окно приложения
 class Main(QMainWindow):
     def __init__(self):
         super().__init__()
-        ui_path = resource_path("main.ui")
-        uic.loadUi(ui_path, self)
+
+        uic.loadUi("Main/main.ui", self)
+
         self.cart.clicked.connect(self.open_cart)
         self.cart = Cart()
+
         self.init_items()
 
         self.all.clicked.connect(lambda checked: self.show_products("All"))
@@ -34,9 +37,11 @@ class Main(QMainWindow):
         self.meat.clicked.connect(lambda checked: self.show_products("Meat"))
         self.milk.clicked.connect(lambda checked: self.show_products("Milk"))
 
+    # Функция инициализации товаров из базы данных
     def init_items(self):
         con = sqlite3.connect("products.db")
         cur = con.cursor()
+
         self.products = cur.execute("""SELECT 
             card_db.id,
             card_db.name,
@@ -47,10 +52,12 @@ class Main(QMainWindow):
             category_db.name AS category
             FROM card_db
             JOIN category_db ON card_db.category_id = category_db.id;""").fetchall()
+
         for i, (id, name, quanity, description, expiration_date, price, category) in enumerate(self.products):
             card = Card(id, name, quanity, description, expiration_date, price, category)
             row, col = divmod(i, 2)
             self.products_grid.addWidget(card, row, col)
+
         con.commit()
         cur.close()
         con.close()
@@ -59,6 +66,7 @@ class Main(QMainWindow):
         self.cart = Cart()
         self.cart.show()
 
+    # Очистка сетки товаров
     def clear_grid(self):
         while self.products_grid.count():
             item = self.products_grid.takeAt(0)
@@ -66,15 +74,18 @@ class Main(QMainWindow):
             if widget is not None:
                 widget.deleteLater()
 
+    # Показ товаров по выбранной категории
     def show_products(self, category):
         self.clear_grid()
         products = [i for i in self.products if category.lower() == i[6].lower()]
+
         if category.lower() != "all":
             for i, p in enumerate(products):
                 row, col = divmod(i, 2)
                 card = Card(*p)
                 self.products_grid.addWidget(card, row, col)
         else:
+            # Показываем все товары
             for i, (id, name, quanity, description, expiration_date, price, category) in enumerate(self.products):
                 card = Card(id, name, quanity, description, expiration_date, price, category)
                 row, col = divmod(i, 2)

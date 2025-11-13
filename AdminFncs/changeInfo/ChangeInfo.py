@@ -21,7 +21,7 @@ class ChangeInfo(QWidget):
         self.cahngeDescription = None
         self.changeDate = None
         self.id = id
-        uic.loadUi("AdminFncs/changeInfo/changeInfo.ui", self)
+        uic.loadUi("../AdminFncs/changeInfo/changeInfo.ui", self)
         self.confrimBtn.clicked.connect(self.changeProduct)
 
     def changeProduct(self):

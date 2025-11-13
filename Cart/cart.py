@@ -24,7 +24,7 @@ class Cart(QWidget):
         self.products_grid = None
         self.addProduct = None
         self.deleteProduct = None
-        uic.loadUi("Cart/profile.ui", self)
+        uic.loadUi("../Cart/profile.ui", self)
         self.init_items()
         self.update()
         self.isAdmin.clicked.connect(self.changeRole)
@@ -34,7 +34,7 @@ class Cart(QWidget):
         self.deleteProduct.clicked.connect(self.openDeleteProductForm)
 
 
-        with open("AdminFncs/isAdmin.txt", "r") as f:
+        with open("../AdminFncs/isAdmin.txt", "r") as f:
             info = f.read()
             if info == "1":
                 self.isAdmin.setChecked(True)
@@ -68,7 +68,7 @@ class Cart(QWidget):
 
     def changeRole(self):
         info = None
-        with open("AdminFncs/isAdmin.txt", "w") as f:
+        with open("../AdminFncs/isAdmin.txt", "w") as f:
             if self.isAdmin.isChecked():
                 info = "1"
                 self.addProduct.setVisible(True)

@@ -23,7 +23,7 @@ class Main(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        uic.loadUi("Main/main.ui", self)
+        uic.loadUi("../Main/main.ui", self)
 
         self.cart.clicked.connect(self.open_cart)
         self.cart = Cart()

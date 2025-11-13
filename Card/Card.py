@@ -40,8 +40,8 @@ class Card(QWidget):
             self.price,
             category
         )
-        self.ImageName = f"Images/{category}.png"
-        uic.loadUi("Card/card.ui", self)
+        self.ImageName = f"../Images/{category}.png"
+        uic.loadUi("../Card/card.ui", self)
         pixmap = QPixmap(self.ImageName).copy(QRect(0, 0, 300, 250))
         pixmap = pixmap.scaled(300, 250)
 

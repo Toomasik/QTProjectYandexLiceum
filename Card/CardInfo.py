@@ -36,13 +36,13 @@ class CardInfo(QWidget):
         pixmap = QPixmap(filename).copy(QRect(0, 0, 300, 250))
         pixmap = pixmap.scaled(300, 250)
 
-        uic.loadUi("Card/card_info.ui", self)
+        uic.loadUi("../Card/card_info.ui", self)
         self.img.setPixmap(pixmap)
         self.id = id
         self.fill_graph(quanity)
 
         self.info = None
-        with open("AdminFncs/isAdmin.txt", "r") as f:
+        with open("../AdminFncs/isAdmin.txt", "r") as f:
             self.info = f.read()
 
         self.addToCartBtn.clicked.connect(self.addToCart)

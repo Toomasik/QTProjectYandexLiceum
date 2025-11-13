@@ -18,7 +18,7 @@ class DeleteProduct(QWidget):
         self.deleteName = None
         self.confrimBtn = None
         self.id = id
-        uic.loadUi("AdminFncs/deleteProduct/deleteProduct.ui", self)
+        uic.loadUi("../AdminFncs/deleteProduct/deleteProduct.ui", self)
         self.confrimBtn.clicked.connect(self.deleteProduct)
 
     def deleteProduct(self):

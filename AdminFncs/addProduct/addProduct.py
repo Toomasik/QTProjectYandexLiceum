@@ -15,7 +15,7 @@ def resource_path(relative_path):
 class AddProduct(QWidget):
     def __init__(self):
         super().__init__()
-        uic.loadUi("AdminFncs/addProduct/addProduct.ui", self)
+        uic.loadUi("../AdminFncs/addProduct/addProduct.ui", self)
         self.confrimBtn.clicked.connect(self.addProduct)
 
     def addProduct(self):

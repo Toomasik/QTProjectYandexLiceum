@@ -4,6 +4,7 @@ import sys
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget, QMessageBox
+from AdminFncs.deleteProduct.UI_deleteProduct import Ui_deleteProduct
 
 def resource_path(relative_path):
     try:
@@ -12,20 +13,20 @@ def resource_path(relative_path):
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 
-class DeleteProduct(QWidget):
+class DeleteProduct(QWidget, Ui_deleteProduct):
     def __init__(self):
         super().__init__()
         self.deleteName = None
         self.confrimBtn = None
         self.id = id
-        uic.loadUi("AdminFncs/deleteProduct/deleteProduct.ui", self)
+        self.setupUi(self)
         self.confrimBtn.clicked.connect(self.deleteProduct)
 
     def deleteProduct(self):
         name = self.deleteName.text().lower()
 
-
-        con = sqlite3.connect("products.db")
+        db_path = resource_path("products.db")
+        con = sqlite3.connect(db_path)
         cur = con.cursor()
 
         isNameAlrIn = cur.execute("SELECT * FROM card_db WHERE name = ?", (name.capitalize(),)).fetchall()

@@ -10,16 +10,16 @@ import pyqtgraph
 import random
 
 from AdminFncs.changeInfo.ChangeInfo import ChangeInfo
+from Card.UI_cardInfo import UI_cardInfo
 
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
-class CardInfo(QWidget):
-
-    def resource_path(relative_path):
-        try:
-            base_path = sys._MEIPASS
-        except Exception:
-            base_path = os.path.abspath(".")
-        return os.path.join(base_path, relative_path)
+class CardInfo(QWidget, UI_cardInfo):
 
     def __init__(self, id, name, quanity, description, expiration_date, price, filename):
         super().__init__()
@@ -36,13 +36,15 @@ class CardInfo(QWidget):
         pixmap = QPixmap(filename).copy(QRect(0, 0, 300, 250))
         pixmap = pixmap.scaled(300, 250)
 
-        uic.loadUi("Card/card_info.ui", self)
+        self.setupUi(self)
         self.img.setPixmap(pixmap)
         self.id = id
         self.fill_graph(quanity)
 
         self.info = None
-        with open("AdminFncs/isAdmin.txt", "r") as f:
+        path = resource_path("AdminFncs/isAdmin.txt")
+
+        with open(path, "r", encoding="utf-8") as f:
             self.info = f.read()
 
         self.addToCartBtn.clicked.connect(self.addToCart)
@@ -67,7 +69,8 @@ class CardInfo(QWidget):
         self.product_graph.plot(x, y)
 
     def addToCart(self):
-        con = sqlite3.connect("products.db")
+        db_path = resource_path("products.db")
+        con = sqlite3.connect(db_path)
         cur = con.cursor()
         cur.execute("CREATE TABLE IF NOT EXISTS cart"
                     "(Id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -93,10 +96,9 @@ class CardInfo(QWidget):
         con.close()
 
     def deleteFromCart(self):
-        con = sqlite3.connect("products.db")
+        db_path = resource_path("products.db")
+        con = sqlite3.connect(db_path)
         cur = con.cursor()
-
-
         isInCart = cur.execute(
             "SELECT product_id FROM cart WHERE product_id = ?",
             (self.id,)).fetchall()

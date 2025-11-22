@@ -4,6 +4,7 @@ import sys
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget, QMessageBox
+from AdminFncs.addProduct.UI_addProduct import Ui_AddProduct
 
 def resource_path(relative_path):
     try:
@@ -12,10 +13,10 @@ def resource_path(relative_path):
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 
-class AddProduct(QWidget):
+class AddProduct(QWidget, Ui_AddProduct):
     def __init__(self):
         super().__init__()
-        uic.loadUi("AdminFncs/addProduct/addProduct.ui", self)
+        self.setupUi(self)
         self.confrimBtn.clicked.connect(self.addProduct)
 
     def addProduct(self):
@@ -35,8 +36,8 @@ class AddProduct(QWidget):
 
         category_id = categories[category]
 
-
-        con = sqlite3.connect("products.db")
+        db_path = resource_path("products.db")
+        con = sqlite3.connect(db_path)
         cur = con.cursor()
 
         isNameAlrIn = cur.execute("SELECT * FROM card_db WHERE name = ?", (name.capitalize(),)).fetchall()

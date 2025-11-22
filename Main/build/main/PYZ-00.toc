@@ -4,6 +4,10 @@
    'C:\\Users\\BAZA PC\\PycharmProjects\\pythonProject\\AdminFncs\\__init__.py',
    'PYMODULE'),
   ('AdminFncs.addProduct', '-', 'PYMODULE'),
+  ('AdminFncs.addProduct.UI_addProduct',
+   'C:\\Users\\BAZA '
+   'PC\\PycharmProjects\\pythonProject\\AdminFncs\\addProduct\\UI_addProduct.py',
+   'PYMODULE'),
   ('AdminFncs.addProduct.addProduct',
    'C:\\Users\\BAZA '
    'PC\\PycharmProjects\\pythonProject\\AdminFncs\\addProduct\\addProduct.py',
@@ -13,7 +17,15 @@
    'C:\\Users\\BAZA '
    'PC\\PycharmProjects\\pythonProject\\AdminFncs\\changeInfo\\ChangeInfo.py',
    'PYMODULE'),
+  ('AdminFncs.changeInfo.UI_changeInfo',
+   'C:\\Users\\BAZA '
+   'PC\\PycharmProjects\\pythonProject\\AdminFncs\\changeInfo\\UI_changeInfo.py',
+   'PYMODULE'),
   ('AdminFncs.deleteProduct', '-', 'PYMODULE'),
+  ('AdminFncs.deleteProduct.UI_deleteProduct',
+   'C:\\Users\\BAZA '
+   'PC\\PycharmProjects\\pythonProject\\AdminFncs\\deleteProduct\\UI_deleteProduct.py',
+   'PYMODULE'),
   ('AdminFncs.deleteProduct.deleteProduct',
    'C:\\Users\\BAZA '
    'PC\\PycharmProjects\\pythonProject\\AdminFncs\\deleteProduct\\deleteProduct.py',
@@ -27,11 +39,26 @@
   ('Card.CardInfo',
    'C:\\Users\\BAZA PC\\PycharmProjects\\pythonProject\\Card\\CardInfo.py',
    'PYMODULE'),
+  ('Card.UI_card',
+   'C:\\Users\\BAZA PC\\PycharmProjects\\pythonProject\\Card\\UI_card.py',
+   'PYMODULE'),
+  ('Card.UI_cardInfo',
+   'C:\\Users\\BAZA PC\\PycharmProjects\\pythonProject\\Card\\UI_cardInfo.py',
+   'PYMODULE'),
   ('Cart',
    'C:\\Users\\BAZA PC\\PycharmProjects\\pythonProject\\Cart\\__init__.py',
    'PYMODULE'),
+  ('Cart.UI_cart',
+   'C:\\Users\\BAZA PC\\PycharmProjects\\pythonProject\\Cart\\UI_cart.py',
+   'PYMODULE'),
   ('Cart.cart',
    'C:\\Users\\BAZA PC\\PycharmProjects\\pythonProject\\Cart\\cart.py',
+   'PYMODULE'),
+  ('Main',
+   'C:\\Users\\BAZA PC\\PycharmProjects\\pythonProject\\Main\\__init__.py',
+   'PYMODULE'),
+  ('Main.UI_main',
+   'C:\\Users\\BAZA PC\\PycharmProjects\\pythonProject\\Main\\UI_main.py',
    'PYMODULE'),
   ('PyQt6',
    'C:\\Users\\BAZA '

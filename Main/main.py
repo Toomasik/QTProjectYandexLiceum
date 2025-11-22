@@ -8,6 +8,8 @@ from Cart.cart import Cart
 
 import os, sys
 
+from Main.UI_main import Ui_Main
+
 
 # Функция для корректного получения пути к ресурсам
 def resource_path(relative_path):
@@ -19,11 +21,11 @@ def resource_path(relative_path):
 
 
 # Основное окно приложения
-class Main(QMainWindow):
+class Main(QMainWindow, Ui_Main):
     def __init__(self):
         super().__init__()
 
-        uic.loadUi("Main/main.ui", self)
+        self.setupUi(self)
 
         self.cart.clicked.connect(self.open_cart)
         self.cart = Cart()
@@ -39,7 +41,8 @@ class Main(QMainWindow):
 
     # Функция инициализации товаров из базы данных
     def init_items(self):
-        con = sqlite3.connect("products.db")
+        db_path = resource_path("products.db")
+        con = sqlite3.connect(db_path)
         cur = con.cursor()
 
         self.products = cur.execute("""SELECT 

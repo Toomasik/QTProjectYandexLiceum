@@ -8,6 +8,7 @@ from PyQt6.QtWidgets import QWidget
 from AdminFncs.addProduct.addProduct import AddProduct
 from AdminFncs.deleteProduct.deleteProduct import DeleteProduct
 from Card.Card import Card
+from Cart.UI_cart import Ui_cart
 
 
 def resource_path(relative_path):
@@ -17,14 +18,14 @@ def resource_path(relative_path):
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 
-class Cart(QWidget):
+class Cart(QWidget, Ui_cart):
     def __init__(self):
         super().__init__()
         self.isAdmin = None
         self.products_grid = None
         self.addProduct = None
         self.deleteProduct = None
-        uic.loadUi("Cart/profile.ui", self)
+        self.setupUi(self)
         self.init_items()
         self.update()
         self.isAdmin.clicked.connect(self.changeRole)
@@ -33,8 +34,9 @@ class Cart(QWidget):
         self.addProduct.clicked.connect(self.openAddProductForm)
         self.deleteProduct.clicked.connect(self.openDeleteProductForm)
 
+        path = resource_path("AdminFncs/isAdmin.txt")
 
-        with open("AdminFncs/isAdmin.txt", "r") as f:
+        with open(path, "r", encoding="utf-8") as f:
             info = f.read()
             if info == "1":
                 self.isAdmin.setChecked(True)
@@ -44,7 +46,8 @@ class Cart(QWidget):
 
 
     def init_items(self):
-        con = sqlite3.connect("products.db")
+        db_path = resource_path("products.db")
+        con = sqlite3.connect(db_path)
         cur = con.cursor()
         products = cur.execute("""SELECT 
             card_db.id,
@@ -68,7 +71,9 @@ class Cart(QWidget):
 
     def changeRole(self):
         info = None
-        with open("AdminFncs/isAdmin.txt", "w") as f:
+        path = resource_path("AdminFncs/isAdmin.txt")
+
+        with open(path, "w", encoding="utf-8") as f:
             if self.isAdmin.isChecked():
                 info = "1"
                 self.addProduct.setVisible(True)

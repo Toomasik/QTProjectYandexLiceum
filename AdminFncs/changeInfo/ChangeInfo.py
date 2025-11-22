@@ -4,6 +4,7 @@ import sys
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget, QMessageBox
+from AdminFncs.changeInfo.UI_changeInfo import Ui_changeInfo
 
 def resource_path(relative_path):
     try:
@@ -12,7 +13,7 @@ def resource_path(relative_path):
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 
-class ChangeInfo(QWidget):
+class ChangeInfo(QWidget, Ui_changeInfo):
     def __init__(self, id):
         super().__init__()
         self.confrimBtn = None
@@ -21,7 +22,7 @@ class ChangeInfo(QWidget):
         self.cahngeDescription = None
         self.changeDate = None
         self.id = id
-        uic.loadUi("AdminFncs/changeInfo/changeInfo.ui", self)
+        self.setupUi(self)
         self.confrimBtn.clicked.connect(self.changeProduct)
 
     def changeProduct(self):
@@ -29,7 +30,8 @@ class ChangeInfo(QWidget):
         price = float(self.changePrice.text())
         expirationDate = self.changeDate.text()
         description = self.cahngeDescription.text()
-        con = sqlite3.connect("products.db")
+        db_path = resource_path("products.db")
+        con = sqlite3.connect(db_path)
         cur = con.cursor()
         cur.execute("UPDATE card_db SET "
                     "quantity = ?,"

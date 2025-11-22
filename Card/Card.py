@@ -7,6 +7,8 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget
 
 from Card.CardInfo import CardInfo
+from Card.UI_card import Ui_Card
+
 
 def resource_path(relative_path):
     try:
@@ -15,7 +17,7 @@ def resource_path(relative_path):
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 
-class Card(QWidget):
+class Card(QWidget, Ui_Card):
 
     def __init__(self, id, name, quanity, description, expiration_date, price, category):
         super().__init__()
@@ -40,8 +42,8 @@ class Card(QWidget):
             self.price,
             category
         )
-        self.ImageName = f"Images/{category}.png"
-        uic.loadUi("Card/card.ui", self)
+        self.ImageName = resource_path(f"Images/{category}.png")
+        self.setupUi(self)
         pixmap = QPixmap(self.ImageName).copy(QRect(0, 0, 300, 250))
         pixmap = pixmap.scaled(300, 250)
 
